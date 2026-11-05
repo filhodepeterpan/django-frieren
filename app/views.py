@@ -9,13 +9,10 @@ from rest_framework import status
 from django.db.models import Sum, Count
 import requests
 
-# Create your views here.
-
 def index(request):
     return render(request, "index.html")
 
 def servicos(request):
-    # servicos = Servico.objects.all()
     servicos = Servico.objects.filter(ativo=True)
     servicos = servicos.exclude(preco=0)
 
@@ -76,7 +73,6 @@ def servicos(request):
 def produtos(request):
     servicos = Servico.objects.all()
 
-    # requisição
     resposta = requests.get('https://fakestoreapi.com/products')
     produtos_api = resposta.json()
 
@@ -170,7 +166,7 @@ def categoriaAPI(request, id_categoria):
         categoria.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     elif request.method == 'PUT':
-        serializer.CategoriaSerializer(categoria, data=request.data)
+        serializer = CategoriaSerializer(categoria, data=request.data)
 
         if serializer.is_valid():
             serializer.save()

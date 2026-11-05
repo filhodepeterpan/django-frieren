@@ -1,40 +1,65 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Integrantes{%endblock%}
+{% block titulo %}Sobre nós{% endblock %}
 
 {% block conteudo %}
 
-    <a href="{% url 'addIntegrante' %}" class="item-menu botao-add">Adicionar Integrante</a>
+    <section class="sobre-hero">
+        <div class="sobre-hero-texto">
+            <span class="sobre-etiqueta">Nossa jornada</span>
+            <h2>Sobre nós</h2>
+            <p>
+                Somos uma equipe que acredita que boas soluções nascem de caminhadas longas e de pequenos momentos
+                compartilhados. Assim como uma viagem sem pressa, cada projeto que entregamos é construído com
+                paciência, cuidado e atenção aos detalhes.
+            </p>
+            <p>
+                Nosso trabalho é transformar ideias em aplicações web seguras, rápidas e fáceis de usar, deixando
+                memórias positivas em cada cliente que passa por nós.
+            </p>
+        </div>
+        <img class="sobre-hero-imagem" src="https://placehold.co/600x400?text=Frieren" alt="Imagem da equipe">
+    </section>
 
-    <div id="integrantes">
-        {% for integrante in integrantes %}
-            <div id="integrante-foto">
-                {% if integrante.foto_url %}
-                    <img src="{{ integrante.foto_url }}" alt="Foto de perfil" width="120" height="120">
-                {% endif %}
-            </div>
+    <section class="sobre-valores">
+        <div class="valor">
+            <h3>Missão</h3>
+            <p>Desenvolver soluções digitais de qualidade que facilitem o dia a dia de quem confia em nosso trabalho.</p>
+        </div>
+        <div class="valor">
+            <h3>Visão</h3>
+            <p>Ser lembrada como uma equipe dedicada, que valoriza cada etapa do caminho tanto quanto o destino.</p>
+        </div>
+        <div class="valor">
+            <h3>Valores</h3>
+            <p>Paciência, colaboração, transparência e respeito por cada pessoa que cruza nossa jornada.</p>
+        </div>
+    </section>
 
-            <div id="integrante-info">
-                <br>
-                <p>{{ integrante.id }}</p>
-                <p>{{ integrante.nome }}</p>
-                <p>{{ integrante.cargo }}</p>
-                <br>
-                <p>{{ integrante.biografia }}</p>
-                <br>
+    <section id="integrantes">
+        <div class="integrantes-titulo">
+            <h2>Nossa equipe</h2>
+            <p>Conheça as pessoas que caminham juntas para compartilhar conhecimento.</p>
+        </div>
 
-                <form method="POST" action={% url 'delIntegrante' integrante.id %} onsubmit="return confirm('Deseja realmente excluir {{ integrante.nome}} ?')" class="form-exclusao">
-                    {% csrf_token %}
-                    <button type="submit" class="botao-excluir">Excluir</button>
-                </form>
+        <div class="grade-integrantes">
+            {% for integrante in integrantes %}
+                <article class="card-integrante">
+                    {% if integrante.foto_url %}
+                        <img src="{{ integrante.foto_url }}" alt="Foto de {{ integrante.nome }}">
+                    {% else %}
+                        <img src="https://placehold.co/400x400?text=Frieren" alt="Foto de {{ integrante.nome }}">
+                    {% endif %}
+                    <div class="card-integrante-info">
+                        <h3>{{ integrante.nome }}</h3>
+                        <span class="etiqueta-cargo">{{ integrante.cargo }}</span>
+                        <p>{{ integrante.biografia }}</p>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="sem-integrantes">Nenhum integrante cadastrado</p>
+            {% endfor %}
+        </div>
+    </section>
 
-                <br>
-                <hr>
-                <br><br>
-            </div>
-            
-            {% empty %} 
-            <p>Nenhum integrante cadastrado</p>
-        {% endfor %}
-    </div>
 {% endblock %}

@@ -14,10 +14,9 @@
         <h1><a href="{% url 'index' %}"
             id="titulo-site">Django</a></h1>
         <nav>
-            <a class="item-menu" href="#">Quem somos</a>
+            <a class="item-menu" href="{% url 'integrantes' %}">Quem somos</a>
             <a class="item-menu" href="{% url 'produtos' %}">Produtos</a>
             <a class="item-menu" href="{% url 'servicos' %}">Serviços</a>
-            <a class="item-menu" href="{% url 'integrantes' %}">Integrantes</a>
             <a class="item-menu" href="{% url 'contato' %}">Contato</a>
             {% if not user.username %}
             <a class="item-menu" href="{% url 'cadastro' %}">Cadastro</a>
