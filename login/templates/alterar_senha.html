@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Alterar senha{%endblock%}
+
+{% block conteudo %}
+
+    <h2>Alterar senha</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        
+        <br>
+        <input type="submit" value="Alterar senha" class="login-botao">
+    </form>
+{% endblock %}

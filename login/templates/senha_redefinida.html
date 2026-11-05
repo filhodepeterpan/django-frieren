@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Senha redefinida{%endblock%}
+
+{% block conteudo %}
+
+    <h2>Senha alterada com sucesso!</h2>
+
+    <p>Agora você pode entrar usando sua nova senha.</p>
+
+    <br><hr><br>
+    <p class="espaco-botao">
+        <a href="{% url 'login' %}" id="botao-alterar-senha">Voltar para o login</a>
+    </p>
+
+{% endblock %}

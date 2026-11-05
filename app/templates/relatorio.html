@@ -1,0 +1,58 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Relatório{%endblock%}
+
+{% block conteudo %}
+
+<div style="width: 500px; height: 250px; margin-bottom: 30px;">
+    <canvas id="graficoCategorias"></canvas>
+</div>
+
+<div style="width: 350px; height: 250px; margin-bottom: 30px;">
+    <canvas id="graficoStatus"></canvas>
+</div>
+
+{% comment %} CONVERTE OS DADOS RECEBIDOS DO DJANGO EM JSON {% endcomment %}
+{{ categorias_labels|json_script:"categorias" }}
+{{ categorias_valores|json_script:"quantidades" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+/* CONVERTE OS DADOS JSON EM ARRAY */
+const categorias = JSON.parse(document.getElementById('categorias').textContent);
+const quantidades = JSON.parse(document.getElementById('quantidades').textContent);
+const graficoCategorias = document.getElementById('graficoCategorias');
+const graficoStatus = document.getElementById('graficoStatus');
+
+new Chart(graficoCategorias, {
+    type: 'bar',
+    data: {
+        labels: categorias,
+        datasets: [{
+            label: 'Serviços por categoria',
+            data: quantidades,
+            backgroundColor: '#C00020'
+        }]
+    }
+})
+
+new Chart(graficoStatus, {
+    type: 'doughnut',
+    data: {
+        labels: ['Ativos', 'Inativos'],
+        datasets: [{
+            data: [
+                {{ servicos_ativos }},
+                {{ servicos_inativos }}
+            ],
+            backgroundColor: [
+            '#C00020',
+            '#000000'
+            ]
+        }]
+    }
+})
+
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Produtos{%endblock%}
+
+{% block conteudo %}
+
+    <h2>Produtos da base de dados</h2>
+    <div class="container-cards">
+        {% for produto in produtos %}
+            <div class="card">
+                <img src={{ produto.imagem.url }} alt="{{ prod.nome }}">
+                <div class="card-conteudo">
+                    <h3>{{ produto.nome }}</h3>
+                    <p>{{ produto.descricao }}</p>
+                    <div class="card-preco">
+                        <span>R$ {{ produto.preco }}</span>
+                        <a href="#" class="card-botao">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <h3>Nenhum produto encontrado na base de dados.</h3>
+        {% endfor %}
+    </div>
+
+    <h2>Produtos da Api<h2>
+    <div class="container-cards">
+        {% for prod in produtos_api %}
+            <div class="card">
+                <img src={{ prod.image }} alt="{{ prod.title }}">
+                <div class="card-conteudo">
+                    <h3>{{ prod.title }}</h3>
+                    <p>{{ prod.description }}</p>
+                    <div class="card-preco">
+                        <span>R$ {{ prod.price }}</span>
+                        <a href="#" class="card-botao">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <h3>Nenhum produto encontrado na API.</h3>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Recuperação de senha{%endblock%}
+
+{% block conteudo %}
+
+    <h2>Verifique seu e-mail</h2>
+
+    <p>Se existir uma conta associada ao e-mail informado, você receberá um link para redefinir sua senha.</p>
+
+    <br><hr><br>
+    <p class="espaco-botao">
+        <a href="{% url 'login' %}" id="botao-alterar-senha">Voltar para o login</a>
+    </p>
+
+{% endblock %}

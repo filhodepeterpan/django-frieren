@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Cadastro{%endblock%}
+
+{% block conteudo %}
+
+    <h2>Cadastro</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{form}}
+
+        <button type="submit">Cadastrar</button>
+    </form>
+{% endblock %}

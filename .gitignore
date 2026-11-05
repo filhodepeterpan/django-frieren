@@ -1,0 +1,30 @@
+# Ambientes Virtuais
+venv/
+.venv/
+env/
+
+# Python (Compilados e Caches)
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Configurações locais e Senhas
+.env
+
+# Banco de Dados local
+db.sqlite3
+*.sqlite3
+
+# Uploads de mídia (arquivos dos usuários)
+media/
+
+# Editores de Código (VS Code / Visual Studio)
+.vscode/
+*.vs
+.idea/
+
+# Sistema Operacional
+Thumbs.db
+.DS_Store

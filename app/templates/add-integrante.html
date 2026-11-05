@@ -1,0 +1,26 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Home{%endblock%}
+
+{% block conteudo %}
+    <h2>Novo integrante</h2>
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'addIntegrante' %}">
+        {% csrf_token %}
+
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required>
+
+        <label for="cargo">Cargo:</label>
+        <input type="text" name="cargo" id="cargo" required>
+
+        <label for="biografia">Biografia:</label>
+        <input type="text" name="biografia" id="biografia" required>
+
+        <label for="foto">Foto (URL):</label>
+        <input type="url" name="foto" id="foto" required>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+{% endblock %}

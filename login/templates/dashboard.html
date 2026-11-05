@@ -1,0 +1,15 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Dashboard{%endblock%}
+
+{% block conteudo %}
+
+    <h2>Dashboard</h2>
+
+    <p>Olá, <strong>{{ user.first_name }}</strong>!</p>
+
+    <form method="post" action="{% url 'logout' %}" id="form-logout">
+        {% csrf_token %}
+        <input type="submit" value="Sair" class="login-botao">
+    </form> 
+{% endblock %}

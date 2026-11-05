@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block titulo %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'index' %}"
+            id="titulo-site">Django</a></h1>
+        <nav>
+            <a class="item-menu" href="#">Quem somos</a>
+            <a class="item-menu" href="{% url 'produtos' %}">Produtos</a>
+            <a class="item-menu" href="{% url 'servicos' %}">Serviços</a>
+            <a class="item-menu" href="{% url 'integrantes' %}">Integrantes</a>
+            <a class="item-menu" href="{% url 'contato' %}">Contato</a>
+            {% if not user.username %}
+            <a class="item-menu" href="{% url 'cadastro' %}">Cadastro</a>
+            <a class="item-menu" href="{% url 'login' %}">Login</a>
+            {% endif %}
+            {% if user.username %}
+            <a class="item-menu" href="{% url 'dashboard' %}">Dashboard</a>
+            <a class="item-menu" href="{% url 'relatorios' %}">Relatórios</a>
+            <a class="item-menu" href="{% url 'perfil' %}">Perfil</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+</body>
+</html>

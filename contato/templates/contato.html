@@ -1,0 +1,36 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Contato{%endblock%}
+
+{% block conteudo %}
+
+    <div class="area-botao">
+        <h2>Lista de contatos</h2>
+        <a href="{% url 'addContato' %}" class="item-menu botao-add">+ Adicionar contato</a>
+    </div>
+    <br>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Mensagem</th>
+            <th colspan="2">Ações<th>
+        </tr>
+        {% for contato in contatos %}
+            <tr>
+                <td><b>{{ contato.nome }}</b></td>
+                <td>{{ contato.email }}</td>
+                <td>{{ contato.telefone }}</td>
+                <td>{{ contato.mensagem }}</td>
+                <td>
+                    <a href="{% url 'editContato' contato.id %}" class="botao-editar" href="">Editar</a>
+                </td>
+                <td>
+                    <a href="{% url 'delContato' contato.id %}" class="botao-excluir" href="">Excluir</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

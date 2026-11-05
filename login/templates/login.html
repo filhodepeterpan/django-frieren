@@ -1,0 +1,20 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Login{%endblock%}
+
+{% block conteudo %}
+
+    <h2>Login</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="login-botao" value="Entrar">
+    </form>
+
+    <br><hr><br>
+    <p class="espaco-botao">
+        <a href="{% url 'password_reset' %}" id="botao-alterar-senha">Esqueci minha senha</a>
+    </p>
+
+{% endblock %}

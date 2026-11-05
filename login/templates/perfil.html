@@ -1,0 +1,28 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Perfil{%endblock%}
+
+{% block conteudo %}
+    <h2>Perfil</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Nome:</label>
+        <input type="text" name="nome" value="{{ user.first_name }}">
+
+        <label>Sobrenome:</label>
+        <input type="text" name="sobrenome" value="{{ user.last_name }}">
+
+        <label>E-mail:</label>
+        <input type="text" name="email" value="{{ user.email }}">
+        <br>
+
+        <input type="submit" value="Salvar alterações" class="login-botao">
+    </form>
+    <br><hr><br>
+    <p class="espaco-botao">
+        <a href="{% url 'alterar_senha'%}" id="botao-alterar-senha">Alterar senha</a>
+    </p>
+
+{% endblock %}

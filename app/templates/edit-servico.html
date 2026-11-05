@@ -1,0 +1,14 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Editar serviço{%endblock%}
+
+{% block conteudo %}
+    <h2>Editar</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Editar</button>
+    </form>
+
+{% endblock %}
