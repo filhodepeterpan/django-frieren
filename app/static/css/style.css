@@ -410,6 +410,118 @@ form button{
     text-align: center;
 }
 
+.equipe-container{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    border-top: 4px solid var(--cor-destaque);
+    box-shadow: var(--box-shadow-padrao);
+}
+
+.equipe-topo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.equipe-topo h2{
+    text-align: left;
+    font-weight: 700;
+}
+
+.botao-add{
+    border-radius: 4px;
+}
+
+.tabela-equipe{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.tabela-equipe th{
+    text-align: left;
+    background-color: var(--cor-escura);
+}
+
+.tabela-equipe td{
+    background-color: white;
+    border-bottom: 1px solid var(--cor-suave);
+    vertical-align: middle;
+}
+
+.foto-tabela{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.acoes-tabela{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.botao-editar{
+    background-color: var(--cor-destaque);
+}
+
+.total-equipe{
+    font-size: 0.95rem;
+}
+
+.titulo-formulario{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.titulo-formulario h2{
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+form label{
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+form input, form textarea{
+    padding: 0.5rem;
+    border: 1px solid var(--cor-escura);
+    border-radius: 4px;
+    font-family: var(--fonte-padrao);
+    font-size: 1rem;
+}
+
+form small{
+    color: #666666;
+}
+
+.previa-foto{
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.botao-cancelar{
+    text-align: center;
+    padding: 0.5rem 0;
+    background-color: var(--cor-suave);
+    color: var(--cor-escura);
+    border-radius: 4px;
+}
+
+.botao-cancelar:hover{
+    opacity: 0.8;
+}
+
 @media (max-width: 800px){
     .sobre-hero{
         flex-direction: column;

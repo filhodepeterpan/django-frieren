@@ -130,13 +130,41 @@ def addIntegrante(request):
             "foto_url" : foto
         }).execute()
 
-        return redirect("integrantes")
+        return redirect("equipe")
 
     return render(request, "add-integrante.html")
 
+def editIntegrante(request, id_integrante):
+    if request.method == "POST":
+        supabase.table("integrantes").update({
+            "nome" : request.POST.get("nome"),
+            "cargo" : request.POST.get("cargo"),
+            "biografia" : request.POST.get("biografia"),
+            "foto_url" : request.POST.get("foto")
+        }).eq("id", id_integrante).execute()
+
+        return redirect("equipe")
+
+    resposta = (supabase
+        .table("integrantes")
+        .select("*")
+        .eq("id", id_integrante)
+        .execute())
+
+    return render(request, "edit-integrante.html", {'integrante':resposta.data[0]})
+
 def delIntegrante(request, id_integrante):
     supabase.table("integrantes").delete().eq("id" , id_integrante).execute()
-    return redirect("integrantes")
+    return redirect("equipe")
+
+def equipe(request):
+    resposta = (supabase
+        .table("integrantes")
+        .select("*")
+        .order("id")
+        .execute())
+
+    return render(request, "equipe.html", {'integrantes':resposta.data})
 
 @api_view(['GET', 'POST'])
 def categoriasAPI(request):

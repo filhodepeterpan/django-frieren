@@ -1,26 +1,36 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Home{%endblock%}
+{% block titulo %}Novo Integrante{% endblock %}
 
 {% block conteudo %}
-    <h2>Novo integrante</h2>
 
-    <form method="POST" enctype="multipart/form-data" action="{% url 'addIntegrante' %}">
+    <div class="titulo-formulario">
+        <span class="sobre-etiqueta">Nossa equipe</span>
+        <h2>Novo Integrante</h2>
+        <p>Cadastre um novo integrante e apresente sua função e contribuição para nossa equipe.</p>
+    </div>
+
+    <form method="POST">
         {% csrf_token %}
 
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome" required>
+        <h3>Informações do integrante</h3>
+        <p>Preencha os dados abaixo para realizar o cadastro.</p>
 
-        <label for="cargo">Cargo:</label>
-        <input type="text" name="cargo" id="cargo" required>
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Digite o nome do integrante" required>
 
-        <label for="biografia">Biografia:</label>
-        <input type="text" name="biografia" id="biografia" required>
+        <label for="cargo">Cargo</label>
+        <input type="text" id="cargo" name="cargo" placeholder="Ex.: Desenvolvedor Web" required>
 
-        <label for="foto">Foto (URL):</label>
-        <input type="url" name="foto" id="foto" required>
+        <label for="biografia">Biografia</label>
+        <textarea id="biografia" name="biografia" rows="5" placeholder="Conte um pouco sobre o integrante..."></textarea>
 
-        <button type="submit">Cadastrar</button>
+        <label for="foto">Foto (URL)</label>
+        <input type="url" id="foto" name="foto" placeholder="https://exemplo.com/foto.jpg">
+        <small>Informe o endereço de uma imagem pública.</small>
+
+        <button type="submit">Cadastrar Integrante</button>
+        <a href="{% url 'equipe' %}" class="botao-cancelar">Cancelar</a>
     </form>
 
 {% endblock %}
