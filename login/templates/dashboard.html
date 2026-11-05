@@ -1,15 +1,62 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Dashboard{%endblock%}
+{% block titulo %}Dashboard{% endblock %}
 
 {% block conteudo %}
 
-    <h2>Dashboard</h2>
+    <section class="dashboard-hero">
+        <span class="sobre-etiqueta">Painel do usuário</span>
+        <h2>Olá, {{ user.first_name|default:user.username }}!</h2>
+        <p>Bem-vindo ao seu painel de controle. Escolha uma das opções abaixo para continuar.</p>
+    </section>
 
-    <p>Olá, <strong>{{ user.first_name }}</strong>!</p>
+    <section class="dashboard-espaco">
+        <h3>Meu espaço</h3>
+        <p>Gerencie suas informações, acompanhe seus pedidos e acesse as funcionalidades disponíveis na plataforma.</p>
 
-    <form method="post" action="{% url 'logout' %}" id="form-logout">
-        {% csrf_token %}
-        <input type="submit" value="Sair" class="login-botao">
-    </form> 
+        <div class="grade-dashboard">
+            <article class="card-dashboard">
+                <span class="sobre-etiqueta">Minha conta</span>
+                <h3>Editar Perfil</h3>
+                <p>Consulte e atualize seus dados pessoais, informações e preferências.</p>
+                <a href="{% url 'perfil' %}">Acessar perfil →</a>
+            </article>
+
+            <article class="card-dashboard">
+                <span class="sobre-etiqueta">Comunicação</span>
+                <h3>Contatos</h3>
+                <p>Consulte e gerencie os contatos cadastrados na plataforma.</p>
+                <a href="{% url 'contatos' %}">Gerenciar contatos →</a>
+            </article>
+
+            <article class="card-dashboard">
+                <span class="sobre-etiqueta">Gerenciamento</span>
+                <h3>Serviços</h3>
+                <p>Cadastre, consulte e gerencie os serviços disponíveis no sistema.</p>
+                <a href="{% url 'servicos' %}">Gerenciar serviços →</a>
+            </article>
+
+            <article class="card-dashboard">
+                <span class="sobre-etiqueta">Nossa equipe</span>
+                <h3>Equipe</h3>
+                <p>Gerencie os integrantes, cargos, biografias e informações da equipe.</p>
+                <a href="{% url 'equipe' %}">Gerenciar equipe →</a>
+            </article>
+
+            <article class="card-dashboard">
+                <span class="sobre-etiqueta">Minhas compras</span>
+                <h3>Meus Pedidos</h3>
+                <p>Consulte seus serviços adquiridos, acompanhe suas compras e visualize os valores.</p>
+                <a href="{% url 'pedidos' %}">Visualizar pedidos →</a>
+            </article>
+
+            <article class="card-dashboard">
+                <span class="sobre-etiqueta">Análises</span>
+                <h3>Relatórios</h3>
+                <p>Consulte informações, dados e estatísticas sobre os serviços e pedidos da plataforma.</p>
+                <a href="{% url 'relatorios' %}">Acessar relatórios →</a>
+            </article>
+        </div>
+    </section>
+
 {% endblock %}

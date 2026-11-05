@@ -1,6 +1,6 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Login{%endblock%}
+{% block titulo %}Login{% endblock %}
 
 {% block conteudo %}
 
@@ -15,6 +15,7 @@
     <br><hr><br>
     <p class="espaco-botao">
         <a href="{% url 'password_reset' %}" id="botao-alterar-senha">Esqueci minha senha</a>
+        <a href="{% url 'cadastro' %}" class="login-botao">Cadastre-se</a>
     </p>
 
 {% endblock %}

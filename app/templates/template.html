@@ -10,22 +10,21 @@
     <title>{% block titulo %}{% endblock %}</title>
 </head>
 <body>
-    <header>
+     <header>
         <h1><a href="{% url 'index' %}"
-            id="titulo-site">Frieren</a></h1>
+            id="titulo-site">Django</a></h1>
         <nav>
             <a class="item-menu" href="{% url 'integrantes' %}">Quem somos</a>
             <a class="item-menu" href="{% url 'produtos' %}">Produtos</a>
-            <a class="item-menu" href="{% url 'servicos' %}">Serviços</a>
             <a class="item-menu" href="{% url 'contato' %}">Contato</a>
-            {% if not user.username %}
-            <a class="item-menu" href="{% url 'cadastro' %}">Cadastro</a>
-            <a class="item-menu" href="{% url 'login' %}">Login</a>
-            {% endif %}
-            {% if user.username %}
-            <a class="item-menu" href="{% url 'dashboard' %}">Dashboard</a>
-            <a class="item-menu" href="{% url 'relatorios' %}">Relatórios</a>
-            <a class="item-menu" href="{% url 'perfil' %}">Perfil</a>
+            {% if user.is_authenticated %}
+            <a class="item-menu botao-menu" href="{% url 'dashboard' %}">Dashboard</a>
+            <form method="post" action="{% url 'logout' %}" class="form-sair">
+                {% csrf_token %}
+                <button type="submit" class="botao-sair">Sair</button>
+            </form>
+            {% else %}
+            <a class="item-menu botao-menu" href="{% url 'login' %}">Entrar</a>
             {% endif %}
         </nav>
     </header>
