@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
 
 class Categoria(models.Model):
@@ -22,4 +22,8 @@ class Servico(models.Model):
 
     def __str__(self):
         return self.nome
-    
+
+class Pedido(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
+    data_compra = models.DateTimeField(auto_now_add=True)

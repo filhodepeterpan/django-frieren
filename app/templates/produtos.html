@@ -28,7 +28,10 @@
                         <div class="card-produto-rodape">
                             <span class="card-produto-preco">R$ {{ produto.preco|floatformat:2 }}</span>
                             {% if user.is_authenticated %}
-                                <a href="#" class="botao-comprar">Comprar</a>
+                                <form method="POST" action="{% url 'comprar' produto.id %}" class="form-exclusao">
+                                    {% csrf_token %}
+                                    <button type="submit" class="botao-comprar">Comprar</button>
+                                </form>
                             {% else %}
                                 <a href="{% url 'login' %}?next={% url 'produtos' %}" class="botao-comprar">Comprar</a>
                             {% endif %}

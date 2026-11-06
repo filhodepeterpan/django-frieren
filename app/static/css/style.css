@@ -960,6 +960,120 @@ form small{
     color: white;
     border-radius: 4px;
     font-size: 0.9rem;
+    border: none;
+    font-family: var(--fonte-padrao);
+    cursor: pointer;
+}
+
+.pedidos-container{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.pedidos-topo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.pedidos-topo h2{
+    text-align: left;
+    font-weight: 700;
+}
+
+.lista-pedidos{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pedido-item{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: white;
+    border-radius: 8px;
+    border-bottom: 3px solid var(--cor-destaque);
+    box-shadow: var(--box-shadow-padrao);
+}
+
+.pedido-imagem{
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.pedido-info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.pedido-info h3{
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.pedido-info p{
+    font-size: 0.85rem;
+    color: #666666;
+}
+
+.pedido-data{
+    font-size: 0.75rem;
+    color: #666666;
+}
+
+.pedido-valor{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.pedido-valor span{
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: #666666;
+}
+
+.pedido-valor strong{
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--cor-destaque);
+}
+
+.pedido-total{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem 0;
+    border-top: 1px solid var(--cor-suave);
+}
+
+.pedido-total span{
+    font-weight: 700;
+    color: var(--cor-destaque);
+}
+
+.pedido-total strong{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cor-destaque);
+}
+
+.pedidos-vazio{
+    text-align: center;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow-padrao);
 }
 
 .botao-comprar:hover{

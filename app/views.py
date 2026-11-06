@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Servico, Categoria
+from django.views.decorators.http import require_POST
+from .models import Servico, Categoria, Pedido
 from .forms import FormServico
 from .supabase_client import supabase
 from .serializers import CategoriaSerializer
@@ -182,8 +183,19 @@ def contatos(request):
     return render(request, "lista-contatos.html", {'contatos':contatos})
 
 @login_required
+@require_POST
+def comprar(request, id_servico):
+    servico = Servico.objects.get(id=id_servico)
+    Pedido.objects.create(usuario=request.user, servico=servico)
+
+    return redirect("pedidos")
+
+@login_required
 def pedidos(request):
-    return render(request, "pedidos.html")
+    pedidos = Pedido.objects.filter(usuario=request.user).select_related('servico').order_by('-data_compra')
+    total = pedidos.aggregate(total=Sum('servico__preco'))['total'] or 0
+
+    return render(request, "pedidos.html", {'pedidos':pedidos, 'total':total})
 
 @api_view(['GET', 'POST'])
 def categoriasAPI(request):
