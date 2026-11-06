@@ -22,6 +22,7 @@
                 <a href="{% url 'perfil' %}">Acessar perfil →</a>
             </article>
 
+            {% if eh_admin %}
             <article class="card-dashboard">
                 <span class="sobre-etiqueta">Comunicação</span>
                 <h3>Contatos</h3>
@@ -42,6 +43,7 @@
                 <p>Gerencie os integrantes, cargos, biografias e informações da equipe.</p>
                 <a href="{% url 'equipe' %}">Gerenciar equipe →</a>
             </article>
+            {% endif %}
 
             <article class="card-dashboard">
                 <span class="sobre-etiqueta">Minhas compras</span>
@@ -50,12 +52,14 @@
                 <a href="{% url 'pedidos' %}">Visualizar pedidos →</a>
             </article>
 
+            {% if eh_admin %}
             <article class="card-dashboard">
                 <span class="sobre-etiqueta">Análises</span>
                 <h3>Relatórios</h3>
                 <p>Consulte informações, dados e estatísticas sobre os serviços e pedidos da plataforma.</p>
                 <a href="{% url 'relatorios' %}">Acessar relatórios →</a>
             </article>
+            {% endif %}
         </div>
     </section>
 

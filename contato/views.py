@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from login.decorators import admin_required
 
 from contato.forms import FormContato
 from .models import Contato
@@ -16,7 +16,7 @@ def addContato(request):
 
     return render(request, "contato.html", {'form':form})
 
-@login_required
+@admin_required
 def delContato(request, id_contato):
     contato = Contato.objects.get(id=id_contato)
 
@@ -25,7 +25,7 @@ def delContato(request, id_contato):
 
     return redirect("contatos")
 
-@login_required
+@admin_required
 def editContato(request, id_contato):
     contato = Contato.objects.get(id=id_contato)
     form = FormContato(request.POST or None, instance=contato)

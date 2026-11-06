@@ -22,11 +22,9 @@ def cadastro(request):
 @login_required
 def dashboard(request):
     perfil = Perfil.objects.get(usuario=request.user)
+    eh_admin = perfil.tipo_usuario == 'administrador'
 
-    if perfil.tipo_usuario == 'administrador':
-        return redirect("/admin")
-
-    return render(request, "dashboard.html")
+    return render(request, "dashboard.html", {'eh_admin':eh_admin})
 
 @login_required
 def perfil(request):
@@ -42,5 +40,3 @@ def perfil(request):
         return redirect("dashboard")
 
     return render(request, "perfil.html")
-
-

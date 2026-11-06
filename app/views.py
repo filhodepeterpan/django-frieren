@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from login.decorators import admin_required
 from django.views.decorators.http import require_POST
 from .models import Servico, Categoria, Pedido
 from .forms import FormServico
@@ -15,7 +16,7 @@ from contato.models import Contato
 def index(request):
     return render(request, "index.html")
 
-@login_required
+@admin_required
 def servicos(request):
     servicos = Servico.objects.filter(ativo=True)
     servicos = servicos.exclude(preco=0)
@@ -82,7 +83,7 @@ def produtos(request):
 
     return render(request, "produtos.html", {'produtos':servicos, 'produtos_api': produtos_api})
 
-@login_required
+@admin_required
 def addServico(request):
     form = FormServico(request.POST or None, request.FILES or None)
 
@@ -94,7 +95,7 @@ def addServico(request):
 
     return render(request, "add-servico.html", {'form':form})
 
-@login_required
+@admin_required
 def delServico(request, id_servico):
     servico = Servico.objects.get(id=id_servico)
 
@@ -103,7 +104,7 @@ def delServico(request, id_servico):
 
     return redirect("servicos")
 
-@login_required
+@admin_required
 def editServico(request, id_servico):
     servico = Servico.objects.get(id=id_servico)
     form = FormServico(request.POST or None, request.FILES or None, instance=servico)
@@ -123,7 +124,7 @@ def integrantes(request):
 
     return render(request, "integrantes.html", {'integrantes':resposta.data})
 
-@login_required
+@admin_required
 def addIntegrante(request):
     if request.method == "POST":
         nome = request.POST.get("nome")
@@ -142,7 +143,7 @@ def addIntegrante(request):
 
     return render(request, "add-integrante.html")
 
-@login_required
+@admin_required
 def editIntegrante(request, id_integrante):
     if request.method == "POST":
         supabase.table("integrantes").update({
@@ -162,12 +163,12 @@ def editIntegrante(request, id_integrante):
 
     return render(request, "edit-integrante.html", {'integrante':resposta.data[0]})
 
-@login_required
+@admin_required
 def delIntegrante(request, id_integrante):
     supabase.table("integrantes").delete().eq("id" , id_integrante).execute()
     return redirect("equipe")
 
-@login_required
+@admin_required
 def equipe(request):
     resposta = (supabase
         .table("integrantes")
@@ -177,7 +178,7 @@ def equipe(request):
 
     return render(request, "equipe.html", {'integrantes':resposta.data})
 
-@login_required
+@admin_required
 def contatos(request):
     contatos = Contato.objects.all()
     return render(request, "lista-contatos.html", {'contatos':contatos})
@@ -233,7 +234,7 @@ def categoriaAPI(request, id_categoria):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@login_required
+@admin_required
 def relatorios(request):
     servicos = Servico.objects.all()
     servicos_ativos = servicos.filter(ativo=True).count()
