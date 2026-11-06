@@ -1,23 +1,46 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Redefinir senha{%endblock%}
+{% block titulo %}Redefinir senha{% endblock %}
 
 {% block conteudo %}
 
-    <h2>Definir uma nova senha</h2>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Recuperar acesso</span>
+            <h2>Definir uma nova senha</h2>
+            <p>Escolha uma nova senha para voltar a acessar sua conta.</p>
+        </div>
 
-    {% if validlink %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
+        {% if validlink %}
+            <form method="post" class="auth-card">
+                {% csrf_token %}
 
-            <button type="submit">Alterar senha</button>
-        </form>
-    {% else %}
-        <p>Este link é inválido ou expirou.</p>
-        <a href="{% url 'password_reset' %}">
-            Solicitar novo link
-        </a>
-    {% endif %}
+                <h3>Nova senha</h3>
+                <p class="auth-subtitulo">Preencha os campos abaixo para continuar.</p>
+
+                {{ form.non_field_errors }}
+
+                {% for campo in form %}
+                    <div class="auth-campo">
+                        <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                        {{ campo }}
+                        {{ campo.errors }}
+                        {% if campo.help_text %}
+                            <div class="auth-ajuda">{{ campo.help_text|safe }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="botao-auth">Alterar senha</button>
+            </form>
+        {% else %}
+            <div class="auth-card">
+                <h3>Link inválido</h3>
+                <p>Este link é inválido ou expirou.</p>
+
+                <a href="{% url 'password_reset' %}" class="botao-auth-link">Solicitar novo link</a>
+            </div>
+        {% endif %}
+    </div>
 
 {% endblock %}

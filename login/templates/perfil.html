@@ -1,28 +1,49 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Perfil{%endblock%}
+{% block titulo %}Perfil{% endblock %}
 
 {% block conteudo %}
-    <h2>Perfil</h2>
 
-    <form method="post">
-        {% csrf_token %}
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Minha conta</span>
+            <h2>Meu Perfil</h2>
+            <p>Gerencie suas informações pessoais e mantenha seus dados sempre atualizados.</p>
+        </div>
 
-        <label>Nome:</label>
-        <input type="text" name="nome" value="{{ user.first_name }}">
+        <form method="post" class="auth-card">
+            {% csrf_token %}
 
-        <label>Sobrenome:</label>
-        <input type="text" name="sobrenome" value="{{ user.last_name }}">
+            <h3>Informações pessoais</h3>
+            <p class="auth-subtitulo">Atualize os dados da sua conta.</p>
 
-        <label>E-mail:</label>
-        <input type="text" name="email" value="{{ user.email }}">
-        <br>
+            <div class="auth-campo">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" value="{{ user.first_name }}" placeholder="Digite seu nome">
+            </div>
 
-        <input type="submit" value="Salvar alterações" class="login-botao">
-    </form>
-    <br><hr><br>
-    <p class="espaco-botao">
-        <a href="{% url 'alterar_senha'%}" id="botao-alterar-senha">Alterar senha</a>
-    </p>
+            <div class="auth-campo">
+                <label for="sobrenome">Sobrenome</label>
+                <input type="text" id="sobrenome" name="sobrenome" value="{{ user.last_name }}" placeholder="Digite seu sobrenome">
+            </div>
+
+            <div class="auth-campo">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" placeholder="Digite seu e-mail">
+            </div>
+
+            <button type="submit" class="botao-auth">Salvar alterações</button>
+
+            <div class="auth-secao-seguranca">
+                <div>
+                    <h4>Segurança da conta</h4>
+                    <p class="auth-ajuda">Mantenha sua senha atualizada para proteger o acesso à sua conta.</p>
+                </div>
+                <a href="{% url 'alterar_senha' %}" class="botao-auth-secundario">Alterar senha</a>
+            </div>
+        </form>
+
+        <a href="{% url 'dashboard' %}" class="auth-link-voltar">Voltar ao dashboard</a>
+    </div>
 
 {% endblock %}

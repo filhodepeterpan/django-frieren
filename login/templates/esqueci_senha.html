@@ -1,16 +1,39 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Esqueci minha senha{%endblock%}
+{% block titulo %}Esqueci minha senha{% endblock %}
 
 {% block conteudo %}
 
-    <h2>Esqueci minha senha</h2>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Recuperar acesso</span>
+            <h2>Esqueceu sua senha?</h2>
+            <p>Informe seu e-mail e enviaremos as instruções para configurar uma nova senha.</p>
+        </div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
+        <form method="post" class="auth-card">
+            {% csrf_token %}
 
-        <button type="submit" class="login">Enviar link de recuperação</button>
-    </form>
+            <h3>Recuperar senha</h3>
+            <p class="auth-subtitulo">Forneça seu endereço de e-mail abaixo.</p>
+
+            {{ form.non_field_errors }}
+
+            {% for campo in form %}
+                <div class="auth-campo">
+                    <label for="{{ campo.id_for_label }}">Endereço de e-mail</label>
+                    {{ campo }}
+                    {{ campo.errors }}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="botao-auth">Reinicializar minha senha</button>
+
+            <div class="auth-troca">
+                <span>Lembrou da senha?</span>
+                <a href="{% url 'login' %}" class="botao-auth-secundario">Fazer login</a>
+            </div>
+        </form>
+    </div>
 
 {% endblock %}

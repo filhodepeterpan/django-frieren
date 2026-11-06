@@ -1,16 +1,21 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Recuperação de senha{%endblock%}
+{% block titulo %}Recuperação de senha{% endblock %}
 
 {% block conteudo %}
 
-    <h2>Verifique seu e-mail</h2>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Recuperar acesso</span>
+            <h2>Verifique seu e-mail</h2>
+        </div>
 
-    <p>Se existir uma conta associada ao e-mail informado, você receberá um link para redefinir sua senha.</p>
+        <div class="auth-card">
+            <h3>Instruções enviadas</h3>
+            <p>Se existir uma conta associada ao e-mail informado, você receberá um link para redefinir sua senha.</p>
 
-    <br><hr><br>
-    <p class="espaco-botao">
-        <a href="{% url 'login' %}" id="botao-alterar-senha">Voltar para o login</a>
-    </p>
+            <a href="{% url 'login' %}" class="botao-auth-link">Voltar para o login</a>
+        </div>
+    </div>
 
 {% endblock %}

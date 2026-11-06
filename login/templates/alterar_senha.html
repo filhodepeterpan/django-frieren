@@ -1,16 +1,44 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Alterar senha{%endblock%}
+{% block titulo %}Alterar senha{% endblock %}
 
 {% block conteudo %}
 
-    <h2>Alterar senha</h2>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Segurança da conta</span>
+            <h2>Alterar Senha</h2>
+            <p>Atualize sua senha para manter sua conta protegida e segura.</p>
+        </div>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        
-        <br>
-        <input type="submit" value="Alterar senha" class="login-botao">
-    </form>
+        <form method="post" class="auth-card">
+            {% csrf_token %}
+
+            <h3>Nova senha</h3>
+            <p class="auth-subtitulo">Preencha os campos abaixo para alterar sua senha.</p>
+
+            {{ form.non_field_errors }}
+
+            {% for campo in form %}
+                <div class="auth-campo">
+                    <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                    {{ campo }}
+                    {{ campo.errors }}
+                    {% if campo.help_text %}
+                        <div class="auth-ajuda">{{ campo.help_text|safe }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="botao-auth">Alterar minha senha</button>
+
+            <div class="auth-dica">
+                <h4>Recomendação de segurança</h4>
+                <p class="auth-ajuda">Utilize uma senha forte, com letras, números e caracteres especiais.</p>
+            </div>
+        </form>
+
+        <a href="{% url 'perfil' %}" class="auth-link-voltar">Voltar ao meu perfil</a>
+    </div>
+
 {% endblock %}

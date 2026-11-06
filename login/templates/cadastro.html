@@ -1,16 +1,44 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Cadastro{%endblock%}
+{% block titulo %}Cadastro{% endblock %}
 
 {% block conteudo %}
 
-    <h2>Cadastro</h2>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Novo usuário</span>
+            <h2>Crie sua conta</h2>
+            <p>Preencha os dados para fazer parte da nossa plataforma.</p>
+        </div>
 
-    <form method="POST">
-        {% csrf_token %}
+        <form method="post" class="auth-card">
+            {% csrf_token %}
 
-        {{form}}
+            <h3>Cadastrar-se</h3>
+            <p class="auth-subtitulo">Informe seus dados para criar seu usuário.</p>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            {{ form.non_field_errors }}
+
+            {% for campo in form %}
+                <div class="auth-campo">
+                    <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                    {{ campo }}
+                    {{ campo.errors }}
+                    {% if campo.help_text %}
+                        <div class="auth-ajuda">{{ campo.help_text|safe }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="botao-auth">Criar minha conta</button>
+
+            <div class="auth-troca">
+                <span>Já possui uma conta?</span>
+                <a href="{% url 'login' %}" class="botao-auth-secundario">Fazer login</a>
+            </div>
+        </form>
+
+        <p class="auth-rodape">Seja bem-vindo à nossa plataforma.</p>
+    </div>
+
 {% endblock %}

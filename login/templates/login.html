@@ -1,21 +1,45 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Login{% endblock %}
+{% block titulo %}Entrar{% endblock %}
 
 {% block conteudo %}
 
-    <h2>Login</h2>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Área restrita</span>
+            <h2>Bem-vindo de volta!</h2>
+            <p>Acesse sua conta para continuar utilizando nossa plataforma.</p>
+        </div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" class="login-botao" value="Entrar">
-    </form>
+        <form method="post" class="auth-card">
+            {% csrf_token %}
 
-    <br><hr><br>
-    <p class="espaco-botao">
-        <a href="{% url 'password_reset' %}" id="botao-alterar-senha">Esqueci minha senha</a>
-        <a href="{% url 'cadastro' %}" class="login-botao">Cadastre-se</a>
-    </p>
+            <h3>Entrar na sua conta</h3>
+            <p class="auth-subtitulo">Informe seus dados de acesso abaixo.</p>
+
+            {{ form.non_field_errors }}
+
+            <div class="auth-campo">
+                <label for="{{ form.username.id_for_label }}">Usuário</label>
+                {{ form.username }}
+            </div>
+
+            <div class="auth-campo">
+                <label for="{{ form.password.id_for_label }}">Senha</label>
+                {{ form.password }}
+            </div>
+
+            <a href="{% url 'password_reset' %}" class="auth-link-esqueci">Esqueceu sua senha?</a>
+
+            <button type="submit" class="botao-auth">Entrar</button>
+
+            <div class="auth-troca">
+                <span>Não tem uma conta?</span>
+                <a href="{% url 'cadastro' %}" class="botao-auth-secundario">Cadastre-se</a>
+            </div>
+        </form>
+
+        <p class="auth-rodape">Acesso seguro à plataforma.</p>
+    </div>
 
 {% endblock %}
