@@ -1143,6 +1143,24 @@ form small{
     margin-top: 1rem;
 }
 
+.auth-sucesso{
+    padding: 0.6rem 0.8rem;
+    background-color: var(--cor-suave);
+    border-left: 4px solid var(--cor-destaque);
+    border-radius: 4px;
+    color: var(--cor-destaque);
+    font-weight: 600;
+}
+
+.auth-campo textarea{
+    min-height: 120px;
+    resize: vertical;
+}
+
+.painel-topo .estatistica{
+    min-width: 180px;
+}
+
 .rodape-relatorio{
     text-align: center;
     font-size: 0.85rem;

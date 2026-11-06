@@ -1,0 +1,65 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Contatos{% endblock %}
+
+{% block conteudo %}
+
+    <div class="painel-container">
+        <div class="painel-topo">
+            <div>
+                <span class="sobre-etiqueta">Gerenciamento</span>
+                <h2>Nossos Contatos</h2>
+                <p>Consulte e gerencie as mensagens recebidas através do formulário de contato.</p>
+            </div>
+            <div class="estatistica">
+                <span class="estatistica-rotulo">Total de contatos</span>
+                <strong>{{ contatos|length }}</strong>
+            </div>
+        </div>
+
+        <section class="painel-card">
+            <h3>Lista de contatos</h3>
+            <p class="auth-ajuda">Contatos recebidos pela plataforma.</p>
+
+            <table class="tabela-equipe">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Mensagem</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contato in contatos %}
+                        <tr>
+                            <td><strong>{{ contato.nome }}</strong></td>
+                            <td>{{ contato.email }}</td>
+                            <td>{{ contato.telefone }}</td>
+                            <td>{{ contato.mensagem }}</td>
+                            <td>
+                                <div class="acoes-tabela">
+                                    <a href="{% url 'editContato' contato.id %}" class="botao-editar">Editar</a>
+                                    <form method="POST" action="{% url 'delContato' contato.id %}" onsubmit="return confirm('Deseja realmente excluir o contato de {{ contato.nome }}?')" class="form-exclusao">
+                                        {% csrf_token %}
+                                        <button type="submit" class="botao-excluir">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">Nenhum contato recebido</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <div class="auth-container">
+            <a href="{% url 'dashboard' %}" class="auth-link-voltar">Voltar ao dashboard</a>
+        </div>
+    </div>
+
+{% endblock %}

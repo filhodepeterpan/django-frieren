@@ -176,9 +176,10 @@ def equipe(request):
 
     return render(request, "equipe.html", {'integrantes':resposta.data})
 
+@login_required
 def contatos(request):
     contatos = Contato.objects.all()
-    return render(request, "contato.html", {'contatos':contatos})
+    return render(request, "lista-contatos.html", {'contatos':contatos})
 
 @login_required
 def pedidos(request):

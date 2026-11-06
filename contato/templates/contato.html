@@ -1,36 +1,56 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Contato{%endblock%}
+{% block titulo %}Contato{% endblock %}
 
 {% block conteudo %}
 
-    <div class="area-botao">
-        <h2>Lista de contatos</h2>
-        <a href="{% url 'addContato' %}" class="item-menu botao-add">+ Adicionar contato</a>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Fale conosco</span>
+            <h2>Entre em contato</h2>
+            <p>Tem alguma dúvida, sugestão ou deseja saber mais? Envie sua mensagem. Será um prazer conversar com você!</p>
+        </div>
+
+        <form method="post" class="auth-card">
+            {% csrf_token %}
+
+            <h3>Envie sua mensagem</h3>
+            <p class="auth-subtitulo">Preencha os campos abaixo para entrar em contato.</p>
+
+            {% for message in messages %}
+                <p class="auth-sucesso">{{ message }}</p>
+            {% endfor %}
+
+            {{ form.non_field_errors }}
+
+            <div class="auth-campo">
+                <label for="{{ form.nome.id_for_label }}">Nome</label>
+                {{ form.nome }}
+                {{ form.nome.errors }}
+            </div>
+
+            <div class="auth-campo">
+                <label for="{{ form.telefone.id_for_label }}">Telefone</label>
+                {{ form.telefone }}
+                {{ form.telefone.errors }}
+            </div>
+
+            <div class="auth-campo">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+
+            <div class="auth-campo">
+                <label for="{{ form.mensagem.id_for_label }}">Mensagem</label>
+                {{ form.mensagem }}
+                {{ form.mensagem.errors }}
+            </div>
+
+            <button type="submit" class="botao-auth">Enviar mensagem</button>
+        </form>
+
+        <p class="auth-rodape">Obrigado por entrar em contato conosco!</p>
     </div>
-    <br>
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Mensagem</th>
-            <th colspan="2">Ações<th>
-        </tr>
-        {% for contato in contatos %}
-            <tr>
-                <td><b>{{ contato.nome }}</b></td>
-                <td>{{ contato.email }}</td>
-                <td>{{ contato.telefone }}</td>
-                <td>{{ contato.mensagem }}</td>
-                <td>
-                    <a href="{% url 'editContato' contato.id %}" class="botao-editar" href="">Editar</a>
-                </td>
-                <td>
-                    <a href="{% url 'delContato' contato.id %}" class="botao-excluir" href="">Excluir</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
 
 {% endblock %}

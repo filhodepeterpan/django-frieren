@@ -1,14 +1,35 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Editar contato{%endblock%}
+{% block titulo %}Editar contato{% endblock %}
 
 {% block conteudo %}
-    <h2>Editar contato</h2>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Editar</button>
-    </form>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Gerenciamento</span>
+            <h2>Editar Contato</h2>
+            <p>Atualize as informações do contato selecionado.</p>
+        </div>
+
+        <form method="POST" class="auth-card">
+            {% csrf_token %}
+
+            <h3>Informações do contato</h3>
+            <p class="auth-subtitulo">Altere os dados necessários abaixo.</p>
+
+            {{ form.non_field_errors }}
+
+            {% for campo in form %}
+                <div class="auth-campo">
+                    <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                    {{ campo }}
+                    {{ campo.errors }}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="botao-auth">Salvar Alterações</button>
+            <a href="{% url 'contatos' %}" class="botao-cancelar">Cancelar</a>
+        </form>
+    </div>
 
 {% endblock %}
