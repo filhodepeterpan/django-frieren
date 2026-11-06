@@ -1,4 +1,5 @@
 {% extends 'template.html' %}
+{% load static %}
 
 {% block titulo %}Sobre nós{% endblock %}
 
@@ -18,7 +19,7 @@
                 memórias positivas em cada cliente que passa por nós.
             </p>
         </div>
-        <img class="sobre-hero-imagem" src="https://placehold.co/600x400?text=Frieren" alt="Imagem da equipe">
+        <img class="sobre-hero-imagem" src="{% static 'images/equipe.png' %}" alt="Imagem da equipe">
     </section>
 
     <section class="sobre-valores">

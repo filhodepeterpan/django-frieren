@@ -1,9 +1,55 @@
 {% extends 'template.html' %}
+{% load static %}
 
-{% block titulo %}Home{%endblock%}
+{% block titulo %}Home{% endblock %}
 
 {% block conteudo %}
 
+    <section class="sobre-hero">
+        <div class="sobre-hero-texto">
+            <span class="sobre-etiqueta">Além do fim da jornada</span>
+            <h2>Bem-vindo à nossa jornada!</h2>
+            <p>
+                Assim como a maga elfa Frieren, acreditamos que cada passo do caminho importa.
+                Conheça nossos serviços e produtos, criados com paciência e cuidado para você seguir adiante.
+            </p>
+            <a href="{% url 'produtos' %}" class="home-botao">Conheça nossos produtos</a>
+        </div>
+        <img class="sobre-hero-imagem"  src="{% static 'images/frieren.png' %}" alt="Frieren">
+    </section>
 
+    <section class="home-secao">
+        <h3>Quem é Frieren?</h3>
+        <p>Frieren é uma maga elfa que, depois de derrotar o Rei Demônio ao lado do grupo do herói Himmel, percebe o quanto deixou passar o valor do tempo vivido com seus companheiros.</p>
+        <p>Em uma nova jornada, ela busca entender as pessoas e preservar suas memórias. Essa história de paciência, vínculos e pequenos momentos inspira o nosso jeito de trabalhar: sem pressa e com atenção a cada detalhe.</p>
+    </section>
+
+    <section class="home-secao">
+        <h3>Por que escolher a nossa equipe?</h3>
+        <div class="grade-motivos">
+            <article class="motivo">
+                <h4>Paciência</h4>
+                <p>Cada projeto é construído com calma e cuidado, valorizando cada etapa do caminho.</p>
+            </article>
+            <article class="motivo">
+                <h4>Memória</h4>
+                <p>Guardamos o histórico de cada pedido para que nenhuma conquista se perca com o tempo.</p>
+            </article>
+            <article class="motivo">
+                <h4>Magia</h4>
+                <p>Transformamos ideias em soluções digitais que parecem encantamento, mas nascem de muito estudo.</p>
+            </article>
+            <article class="motivo">
+                <h4>Companheirismo</h4>
+                <p>Caminhamos ao lado de cada cliente, como um grupo de aventureiros unido por um mesmo objetivo.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="home-chamada">
+        <h3>Comece a sua jornada!</h3>
+        <p>Explore nosso catálogo e encontre o serviço certo para dar o próximo passo.</p>
+        <a href="{% url 'produtos' %}" class="home-botao">Ver catálogo</a>
+    </section>
 
 {% endblock %}

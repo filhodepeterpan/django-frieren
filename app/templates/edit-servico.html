@@ -1,14 +1,46 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Editar serviço{%endblock%}
+{% block titulo %}Editar serviço{% endblock %}
 
 {% block conteudo %}
-    <h2>Editar</h2>
 
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Editar</button>
-    </form>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Gerenciamento</span>
+            <h2>Editar Serviço</h2>
+            <p>Atualize as informações do serviço cadastrado no catálogo.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="auth-card">
+            {% csrf_token %}
+
+            <h3>Informações do Serviço</h3>
+            <p class="auth-subtitulo">Altere os dados necessários abaixo.</p>
+
+            {{ form.non_field_errors }}
+
+            {% for campo in form %}
+                {% if campo.field.widget.input_type == 'checkbox' %}
+                    <div class="auth-campo auth-campo-check">
+                        {{ campo }}
+                        <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                        {{ campo.errors }}
+                    </div>
+                {% else %}
+                    <div class="auth-campo">
+                        <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                        {{ campo }}
+                        {{ campo.errors }}
+                        {% if campo.help_text %}
+                            <div class="auth-ajuda">{{ campo.help_text|safe }}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="botao-auth">Salvar Alterações</button>
+            <a href="{% url 'servicos' %}" class="botao-cancelar">Cancelar</a>
+        </form>
+    </div>
 
 {% endblock %}

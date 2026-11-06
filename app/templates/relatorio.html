@@ -1,58 +1,105 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Relatório{%endblock%}
+{% block titulo %}Relatórios{% endblock %}
 
 {% block conteudo %}
 
-<div style="width: 500px; height: 250px; margin-bottom: 30px;">
-    <canvas id="graficoCategorias"></canvas>
-</div>
+    <div class="painel-container">
+        <div class="titulo-formulario">
+            <span class="sobre-etiqueta">Análise de dados</span>
+            <h2>Relatórios de Serviços</h2>
+            <p>Acompanhe os dados e a situação dos serviços cadastrados na plataforma.</p>
+        </div>
 
-<div style="width: 350px; height: 250px; margin-bottom: 30px;">
-    <canvas id="graficoStatus"></canvas>
-</div>
+        <div class="grade-estatisticas">
+            <div class="estatistica">
+                <span class="estatistica-rotulo">Cadastrados</span>
+                <strong>{{ servicos_ativos|add:servicos_inativos }}</strong>
+                <p>Total de serviços</p>
+            </div>
+            <div class="estatistica">
+                <span class="estatistica-rotulo">Disponíveis</span>
+                <strong>{{ servicos_ativos }}</strong>
+                <p>Serviços ativos</p>
+            </div>
+            <div class="estatistica">
+                <span class="estatistica-rotulo">Indisponíveis</span>
+                <strong>{{ servicos_inativos }}</strong>
+                <p>Serviços inativos</p>
+            </div>
+        </div>
 
-{% comment %} CONVERTE OS DADOS RECEBIDOS DO DJANGO EM JSON {% endcomment %}
-{{ categorias_labels|json_script:"categorias" }}
-{{ categorias_valores|json_script:"quantidades" }}
+        <section class="home-secao">
+            <h3>Visão geral</h3>
+            <p>Visualize a distribuição e a situação dos serviços.</p>
+        </section>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <div class="grade-graficos">
+            <div class="grafico-card">
+                <h4>Serviços por categoria</h4>
+                <p class="auth-ajuda">Quantidade de serviços cadastrados em cada categoria.</p>
+                <div class="grafico-area">
+                    <canvas id="graficoCategorias"></canvas>
+                </div>
+            </div>
 
-<script>
-/* CONVERTE OS DADOS JSON EM ARRAY */
-const categorias = JSON.parse(document.getElementById('categorias').textContent);
-const quantidades = JSON.parse(document.getElementById('quantidades').textContent);
-const graficoCategorias = document.getElementById('graficoCategorias');
-const graficoStatus = document.getElementById('graficoStatus');
+            <div class="grafico-card">
+                <h4>Situação dos serviços</h4>
+                <p class="auth-ajuda">Distribuição entre serviços ativos e inativos.</p>
+                <div class="grafico-area">
+                    <canvas id="graficoStatus"></canvas>
+                </div>
+            </div>
+        </div>
 
-new Chart(graficoCategorias, {
-    type: 'bar',
-    data: {
-        labels: categorias,
-        datasets: [{
-            label: 'Serviços por categoria',
-            data: quantidades,
-            backgroundColor: '#C00020'
-        }]
-    }
-})
+        <p class="rodape-relatorio">Relatórios administrativos | Plataforma Django</p>
+    </div>
 
-new Chart(graficoStatus, {
-    type: 'doughnut',
-    data: {
-        labels: ['Ativos', 'Inativos'],
-        datasets: [{
-            data: [
-                {{ servicos_ativos }},
-                {{ servicos_inativos }}
-            ],
-            backgroundColor: [
-            '#C00020',
-            '#000000'
-            ]
-        }]
-    }
-})
+    {{ categorias_labels|json_script:"categorias" }}
+    {{ categorias_valores|json_script:"quantidades" }}
 
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const categorias = JSON.parse(document.getElementById('categorias').textContent);
+        const quantidades = JSON.parse(document.getElementById('quantidades').textContent);
+
+        new Chart(document.getElementById('graficoCategorias'), {
+            type: 'bar',
+            data: {
+                labels: categorias,
+                datasets: [{
+                    label: 'Serviços',
+                    data: quantidades,
+                    backgroundColor: '#3E7C6B',
+                    borderRadius: 4,
+                    maxBarThickness: 48
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+            }
+        });
+
+        new Chart(document.getElementById('graficoStatus'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Ativos', 'Inativos'],
+                datasets: [{
+                    data: [{{ servicos_ativos }}, {{ servicos_inativos }}],
+                    backgroundColor: ['#3E7C6B', '#C9A84C']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    </script>
+
 {% endblock %}

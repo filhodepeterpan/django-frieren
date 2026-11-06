@@ -1,14 +1,46 @@
 {% extends 'template.html' %}
 
-{% block titulo %}Criar serviço{%endblock%}
+{% block titulo %}Cadastrar serviço{% endblock %}
 
 {% block conteudo %}
-    <h2>Criar serviço</h2>
 
-    <form action="{% url 'addServico' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Cadastrar</button>
-    </form>
+    <div class="auth-container">
+        <div class="auth-titulo">
+            <span class="sobre-etiqueta">Gerenciamento</span>
+            <h2>Cadastrar Serviço</h2>
+            <p>Preencha as informações abaixo para adicionar um novo serviço ao catálogo.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="auth-card">
+            {% csrf_token %}
+
+            <h3>Informações do Serviço</h3>
+            <p class="auth-subtitulo">Informe os dados necessários para cadastrar o serviço.</p>
+
+            {{ form.non_field_errors }}
+
+            {% for campo in form %}
+                {% if campo.field.widget.input_type == 'checkbox' %}
+                    <div class="auth-campo auth-campo-check">
+                        {{ campo }}
+                        <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                        {{ campo.errors }}
+                    </div>
+                {% else %}
+                    <div class="auth-campo">
+                        <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                        {{ campo }}
+                        {{ campo.errors }}
+                        {% if campo.help_text %}
+                            <div class="auth-ajuda">{{ campo.help_text|safe }}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="botao-auth">Cadastrar Serviço</button>
+            <a href="{% url 'servicos' %}" class="botao-cancelar">Cancelar</a>
+        </form>
+    </div>
 
 {% endblock %}
