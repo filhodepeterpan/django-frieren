@@ -77,11 +77,21 @@ def servicos(request):
 
 def produtos(request):
     servicos = Servico.objects.all()
+    api_indisponivel = False
 
-    resposta = requests.get('https://fakestoreapi.com/products')
-    produtos_api = resposta.json()
+    try:
+        resposta = requests.get('https://fakestoreapi.com/products', timeout=10)
+        resposta.raise_for_status()
+        produtos_api = resposta.json()
+    except (requests.RequestException, ValueError):
+        produtos_api = []
+        api_indisponivel = True
 
-    return render(request, "produtos.html", {'produtos':servicos, 'produtos_api': produtos_api})
+    return render(request, "produtos.html", {
+        'produtos': servicos,
+        'produtos_api': produtos_api,
+        'api_indisponivel': api_indisponivel,
+    })
 
 @admin_required
 def addServico(request):

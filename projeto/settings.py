@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-td!y2nnj^!yp3!i#=f0jxdqd5=^-sqamotq+6v2ne2h1#r*o2a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'filhodepeterpan.pythonanywhere.com'
+]
 
 # Application definition
 
@@ -120,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Diretório de Upload de arquivos
 MEDIA_URL = '/media/'

@@ -12,7 +12,6 @@ def cadastro(request):
 
         if form.is_valid():
             usuario = form.save()
-            Perfil.objects.create(usuario=usuario, tipo_usuario='cliente')
             return redirect("login")
     else:
         form = CadastroForm()

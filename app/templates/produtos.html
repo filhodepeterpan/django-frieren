@@ -60,8 +60,12 @@
                         </div>
                     </div>
                 </article>
-            {% empty %}
-                <p>Nenhum produto encontrado na API.</p>
+                {% empty %}
+                {% if api_indisponivel %}
+                    <p>Não foi possível carregar os produtos parceiros no momento. Tente novamente mais tarde.</p>
+                {% else %}
+                    <p>Nenhum produto encontrado na API.</p>
+                {% endif %}
             {% endfor %}
         </div>
     </section>
