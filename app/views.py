@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from login.decorators import admin_required
 from django.views.decorators.http import require_POST
-from .models import Servico, Categoria, Pedido
+from .models import Servico, Categoria, Pedido, Compra, ItemCompra
 from .forms import FormServico
 from .supabase_client import supabase
 from .serializers import CategoriaSerializer
@@ -234,9 +234,28 @@ def delPedido(request, id_pedido):
 @login_required
 @require_POST
 def finalizarCompra(request):
-    Pedido.objects.filter(usuario=request.user).delete()
+    pedidos = Pedido.objects.filter(usuario=request.user).select_related('servico')
+
+    if pedidos:
+        compra = Compra.objects.create(usuario=request.user)
+
+        for pedido in pedidos:
+            ItemCompra.objects.create(
+                compra=compra,
+                nome=pedido.servico.nome,
+                preco=pedido.servico.preco,
+                quantidade=pedido.quantidade
+            )
+
+        pedidos.delete()
 
     return redirect("pedidos")
+
+@login_required
+def historico(request):
+    compras = Compra.objects.filter(usuario=request.user).prefetch_related('itens').order_by('-data_compra', '-id')
+
+    return render(request, "historico.html", {'compras':compras})
 
 @api_view(['GET', 'POST'])
 def categoriasAPI(request):

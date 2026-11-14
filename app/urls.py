@@ -20,6 +20,7 @@ urlpatterns = [
     path("diminuir-pedido/<int:id_pedido>", views.diminuirPedido, name="diminuirPedido"),
     path("del-pedido/<int:id_pedido>", views.delPedido, name="delPedido"),
     path("finalizar-compra", views.finalizarCompra, name="finalizarCompra"),
+    path("historico", views.historico, name="historico"),
     path("categoria-api/", views.categoriasAPI, name="categoriasAPI"),
     path("categoria-api/<int:id_categoria>", views.categoriaAPI, name="categoriaAPI"),
     path('relatorios/', views.relatorios, name='relatorios'),

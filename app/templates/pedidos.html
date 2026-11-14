@@ -10,7 +10,10 @@
                 <h2>Meus Pedidos</h2>
                 <p>Acompanhe todos os serviços que você adquiriu.</p>
             </div>
-            <a href="{% url 'produtos' %}" class="item-menu botao-add">Continuar comprando</a>
+            <div class="pedidos-topo-acoes">
+                <a href="{% url 'historico' %}" class="item-menu botao-add botao-historico">Histórico de compras</a>
+                <a href="{% url 'produtos' %}" class="item-menu botao-add">Continuar comprando</a>
+            </div>
         </div>
 
         <div class="lista-pedidos">

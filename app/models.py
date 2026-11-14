@@ -32,3 +32,21 @@ class Pedido(models.Model):
     @property
     def subtotal(self):
         return self.servico.preco * self.quantidade
+
+class Compra(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    data_compra = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def total(self):
+        return sum(item.subtotal for item in self.itens.all())
+
+class ItemCompra(models.Model):
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE, related_name='itens')
+    nome = models.CharField(max_length=255)
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    quantidade = models.PositiveIntegerField()
+
+    @property
+    def subtotal(self):
+        return self.preco * self.quantidade

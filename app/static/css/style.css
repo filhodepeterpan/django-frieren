@@ -1,15 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&display=swap');
 
+@font-face {
+    font-family: 'Frieren La Belle';
+    src: url('./fonts/Frieren-La-Belle-Demo.otf') format('opentype');
+}
+
 :root{
-    --cor-destaque: #247560;
-    --cor-escura: #261F47;
-    --cor-dourada: #D8B65A;
-    --cor-fundo: #F0F2F8;
-    --cor-suave: #E2EBEE;
+    --cor-destaque: #199a64;
+    --cor-escura: #20003c;
+    --cor-dourada: #C9A84C;
+    --cor-fundo: #F3F6F4;
+    --cor-suave: #E3EDE9;
     --cor-texto-botao: white;
     --padding-padrao: 3rem;
     --fonte-padrao: "Blinker", sans-serif;
-    --box-shadow-padrao: 0 4px 12px rgba(38, 31, 71, 0.18);
+    --box-shadow-padrao: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 *{
@@ -29,12 +34,15 @@ body{
 }
 
 #titulo-site{
-    background: linear-gradient(var(--cor-destaque),var(--cor-escura));
+    font-family: 'Frieren La Belle';
+    font-size: 3rem;
+    border-top: 1px solid var(--cor-destaque);
+    border-bottom: 1px solid var(--cor-dourada);
     color: var(--cor-texto-botao);
     text-align: center;
-    padding: 1rem;
-    border-radius: 4px;
-    margin: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25rem;
+    padding: 0 0.5rem;
 }
 
 #titulo-site:hover{
@@ -308,7 +316,7 @@ form button{
 }
 
 .sobre-hero-imagem{
-    width: 320px;
+    width: 600px;
     max-width: 100%;
     border-radius: 8px;
     object-fit: cover;
@@ -1142,6 +1150,74 @@ form small{
 
 .botao-finalizar:hover{
     opacity: 0.85;
+}
+
+.pedidos-topo-acoes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.botao-historico{
+    background-color: var(--cor-destaque);
+}
+
+.compra-card{
+    background-color: white;
+    border-radius: 8px;
+    border-bottom: 3px solid var(--cor-destaque);
+    box-shadow: var(--box-shadow-padrao);
+    overflow: hidden;
+}
+
+.compra-topo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--cor-suave);
+}
+
+.compra-data{
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.compra-data strong{
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.compra-itens{
+    list-style: none;
+}
+
+.compra-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    border-top: 1px solid var(--cor-suave);
+}
+
+.compra-item-info{
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.compra-item-info span{
+    font-size: 0.85rem;
+    color: #666666;
+}
+
+.compra-item-valor{
+    font-weight: 700;
+    color: var(--cor-destaque);
 }
 
 .painel-container{
