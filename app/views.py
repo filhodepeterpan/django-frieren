@@ -78,10 +78,17 @@ def servicos(request):
 def produtos(request):
     servicos = Servico.objects.all()
 
-    resposta = requests.get('https://fakestoreapi.com/products')
-    produtos_api = resposta.json()
+    try:
+        resposta = requests.get('https://fakestoreapi.com/products', timeout=10)
+        resposta.raise_for_status()
+        produtos_api = resposta.json()
+    except (requests.RequestException, ValueError):
+        produtos_api = []
 
-    return render(request, "produtos.html", {'produtos':servicos, 'produtos_api': produtos_api})
+    return render(request, "produtos.html", {
+        'produtos': servicos,
+        'produtos_api': produtos_api,
+    })
 
 @admin_required
 def addServico(request):
