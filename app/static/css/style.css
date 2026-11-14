@@ -1424,6 +1424,28 @@ form small{
     border-top: 1px solid var(--cor-suave);
 }
 
+.pedido-controle form,
+.pedido-finalizar,
+.pedido-finalizar form{
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: none;
+    flex-direction: row;
+}
+
+.pedido-finalizar{
+    margin-top: 1rem;
+}
+
+.botao-quantidade{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width: 800px){
     .grade-motivos, .grade-graficos{
         grid-template-columns: 1fr;
