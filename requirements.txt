@@ -3,3 +3,4 @@ python-dotenv==1.2.4
 Requests==2.34.2
 supabase==2.34.1
 pillow==11.3.0
+djangorestframework
