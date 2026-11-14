@@ -28,6 +28,8 @@ SECRET_KEY = 'django-insecure-td!y2nnj^!yp3!i#=f0jxdqd5=^-sqamotq+6v2ne2h1#r*o2a
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost:8000',
+    'localhost',
     'filhodepeterpan.pythonanywhere.com'
 ]
 

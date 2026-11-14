@@ -26,4 +26,9 @@ class Servico(models.Model):
 class Pedido(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
     data_compra = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def subtotal(self):
+        return self.servico.preco * self.quantidade

@@ -26,10 +26,28 @@
                         <p>{{ pedido.servico.descricao }}</p>
                         <span class="pedido-data">Comprado em: {{ pedido.data_compra|date:"d/m/Y" }} | {{ pedido.data_compra|date:"H:i" }}</span>
                     </div>
+                    <div class="pedido-quantidade">
+                        <span class="pedido-rotulo">Quantidade</span>
+                        <div class="pedido-controle">
+                            <form method="POST" action="{% url 'diminuirPedido' pedido.id %}" class="form-exclusao">
+                                {% csrf_token %}
+                                <button type="submit" class="botao-quantidade"{% if pedido.quantidade <= 1 %} disabled{% endif %}>−</button>
+                            </form>
+                            <strong>{{ pedido.quantidade }}</strong>
+                            <form method="POST" action="{% url 'aumentarPedido' pedido.id %}" class="form-exclusao">
+                                {% csrf_token %}
+                                <button type="submit" class="botao-quantidade">+</button>
+                            </form>
+                        </div>
+                    </div>
                     <div class="pedido-valor">
                         <span>Valor</span>
-                        <strong>R$ {{ pedido.servico.preco|floatformat:2 }}</strong>
+                        <strong>R$ {{ pedido.subtotal|floatformat:2 }}</strong>
                     </div>
+                    <form method="POST" action="{% url 'delPedido' pedido.id %}" class="form-exclusao">
+                        {% csrf_token %}
+                        <button type="submit" class="botao-excluir">Excluir</button>
+                    </form>
                 </article>
             {% empty %}
                 <p class="pedidos-vazio">Você ainda não possui pedidos.</p>
@@ -40,6 +58,26 @@
             <span>Total das compras</span>
             <strong>R$ {{ total|floatformat:2 }}</strong>
         </div>
+
+        {% if pedidos %}
+            <div class="pedido-finalizar">
+                <form method="POST" action="{% url 'finalizarCompra' %}" onsubmit="return finalizarCompra()" class="form-exclusao">
+                    {% csrf_token %}
+                    <button type="submit" class="botao-finalizar">Finalizar compra</button>
+                </form>
+            </div>
+        {% endif %}
     </div>
+
+    <script>
+        function finalizarCompra() {
+            if (!confirm('Tem certeza que deseja finalizar a compra?')) {
+                return false;
+            }
+
+            alert('Compra finalizada com sucesso!');
+            return true;
+        }
+    </script>
 
 {% endblock %}

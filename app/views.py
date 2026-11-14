@@ -77,21 +77,11 @@ def servicos(request):
 
 def produtos(request):
     servicos = Servico.objects.all()
-    api_indisponivel = False
 
-    try:
-        resposta = requests.get('https://fakestoreapi.com/products', timeout=10)
-        resposta.raise_for_status()
-        produtos_api = resposta.json()
-    except (requests.RequestException, ValueError):
-        produtos_api = []
-        api_indisponivel = True
+    resposta = requests.get('https://fakestoreapi.com/products')
+    produtos_api = resposta.json()
 
-    return render(request, "produtos.html", {
-        'produtos': servicos,
-        'produtos_api': produtos_api,
-        'api_indisponivel': api_indisponivel,
-    })
+    return render(request, "produtos.html", {'produtos':servicos, 'produtos_api': produtos_api})
 
 @admin_required
 def addServico(request):
@@ -197,16 +187,56 @@ def contatos(request):
 @require_POST
 def comprar(request, id_servico):
     servico = Servico.objects.get(id=id_servico)
-    Pedido.objects.create(usuario=request.user, servico=servico)
+    pedido = Pedido.objects.filter(usuario=request.user, servico=servico).first()
+
+    if pedido:
+        pedido.quantidade += 1
+        pedido.save()
+    else:
+        Pedido.objects.create(usuario=request.user, servico=servico)
 
     return redirect("pedidos")
 
 @login_required
 def pedidos(request):
     pedidos = Pedido.objects.filter(usuario=request.user).select_related('servico').order_by('-data_compra')
-    total = pedidos.aggregate(total=Sum('servico__preco'))['total'] or 0
+    total = sum(pedido.subtotal for pedido in pedidos)
 
     return render(request, "pedidos.html", {'pedidos':pedidos, 'total':total})
+
+@login_required
+@require_POST
+def aumentarPedido(request, id_pedido):
+    pedido = Pedido.objects.get(id=id_pedido, usuario=request.user)
+    pedido.quantidade += 1
+    pedido.save()
+
+    return redirect("pedidos")
+
+@login_required
+@require_POST
+def diminuirPedido(request, id_pedido):
+    pedido = Pedido.objects.get(id=id_pedido, usuario=request.user)
+
+    if pedido.quantidade > 1:
+        pedido.quantidade -= 1
+        pedido.save()
+
+    return redirect("pedidos")
+
+@login_required
+@require_POST
+def delPedido(request, id_pedido):
+    Pedido.objects.filter(id=id_pedido, usuario=request.user).delete()
+
+    return redirect("pedidos")
+
+@login_required
+@require_POST
+def finalizarCompra(request):
+    Pedido.objects.filter(usuario=request.user).delete()
+
+    return redirect("pedidos")
 
 @api_view(['GET', 'POST'])
 def categoriasAPI(request):
