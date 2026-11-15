@@ -1470,3 +1470,25 @@ form small{
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 800px){
+    header{
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.25rem;
+        padding: 1.5rem 1rem;
+    }
+
+    nav{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px){
+    #titulo-site{
+        font-size: 2.2rem;
+        letter-spacing: 0.15rem;
+    }
+}
